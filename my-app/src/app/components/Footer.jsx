@@ -1,16 +1,23 @@
 import React from "react";
-import { IoChevronBackSharp } from "react-icons/io5";
-import { IoChevronForwardSharp } from "react-icons/io5";
-export const Footer = ({ handleClick }) => {
+
+export const Footer = ({ text, backOnClick, handleOnClick, backCount }) => {
   return (
-    <div className="flex w-[416px] items-start gap-2 text-black">
+    <div className="flex justify-center gap-2">
+      {backCount > 1 && (
+        <button
+          onClick={backOnClick}
+          className="w-[128px] h-[32px] rounded-[10px] p-3 flex border-2 border-gray-500 text-black"
+        >
+          Back
+        </button>
+      )}
       <button
-        onClick={handleClick}
-        className="flex w-[416px] h-[44px] items-center justify-center gap-1 rounded-[6px] border bg-black"
+        id="nextButton"
+        type="submit"
+        onClick={handleOnClick}
+        className="w-full bg-gray-900 h-[28px] flex p-4 text-white justify-center items-center"
       >
-        <p className="  text-[#fff] font-bold">Continue</p>
-        <p className=" text-[#fff] font-bold">1/3 </p>
-        <IoChevronForwardSharp className="fill-white stroke-white" />
+        Continue {backCount}1/3
       </button>
     </div>
   );

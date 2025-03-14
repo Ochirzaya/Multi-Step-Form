@@ -1,28 +1,51 @@
 "use client";
-import Image from "next/image";
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
-
-import { Input } from "./components/Input";
 import { useState } from "react";
+import { StepTwo } from "./components/StepTwo";
+import { StepThree } from "./components/StepThree";
+import { Header } from "./components/Header";
+import { StepOne } from "./components";
 
 export default function Home() {
-  const [count, setCount] = useState(1);
+  const initialFormValues = {
+    Firstname: "",
+    Username: "",
+    Lastname: "",
+    Password: "",
+    Email: "",
+    Phonenumber: "",
+    Datebirth: "",
+  };
+  const [count, setCount] = useState(0);
+  const [data, setData] = useState(initialFormValues);
+  const CurrentStep = [StepOne, StepTwo, StepThree][count];
 
-  const handleNext = () => {
+  const StepCount = (event) => {
+    event.preventDefault();
+    if (count >= 2) {
+      return;
+    }
     setCount(count + 1);
   };
+  const StepCountBack = (event) => {
+    event.preventDefault();
+    setCount(count - 1);
+  };
+  const handleInputChange = (event) => {
+    const { value, name } = event.target;
 
+    setData((prev) => ({ ...data, [name]: value }));
+    console.log(data);
+  };
   return (
-    <div className="flex w-screen h-screen items-center justify-center bg-blue-100">
-      <div className="w-[480px] h-[655px] flex flex-col items-center bg-[#fff] rounded-[8px] p-[32px] gap-7">
-        <Header />
-        <div className="flex w-[416px] h-[308px] flex-col items-start gap-3">
-          <Input label={"First Name"} />
-          <Input label={"Last Name"} />
-          <Input label={"Username"} />
-        </div>
-        <Footer handleClick={handleNext} />
+    <div className="h-screen flex justify-center items-center">
+      <div className="w-fit h-[591px] ">
+        <CurrentStep
+          handleOnClick={StepCount}
+          conCount={count + 1}
+          backOnClick={StepCountBack}
+          handleOnChange={handleInputChange}
+          name={initialFormValues}
+        />
       </div>
     </div>
   );

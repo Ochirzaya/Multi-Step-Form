@@ -1,20 +1,19 @@
 import React from "react";
 
-export const Input = ({ type, name, placeholder, label }) => {
+export const Input = ({ text, placeholder, isError, handleOnChange }) => {
   return (
-    <div>
-      <div className="flex flex-col items-start gap-2">
-        <p className="text-[#334155] font-bold">
-          {label}
-          <span className="text-[#E14942]">*</span>
-        </p>
-        <input
-          type={type}
-          name={name}
-          placeholder={placeholder}
-          className="w-[416px] p-3 rounded-lg border focus:border-[#0CA5E9] text-[#202124]"
-        />
-      </div>
+    <div className=" flex w-[416px] gap-1 flex-col">
+      <label className="text-[14px] font-bold text-[#334155]">
+        {text} <span className="text-red-600">*</span>
+      </label>
+      <input
+        type="text"
+        name={text}
+        placeholder=""
+        onChange={handleOnChange}
+        className="h-[44px] border rounded-[5px] focus-visible:outline-blue-700 text-black"
+      />
+      {isError && <p className="text-red-500">Error</p>}
     </div>
   );
 };
